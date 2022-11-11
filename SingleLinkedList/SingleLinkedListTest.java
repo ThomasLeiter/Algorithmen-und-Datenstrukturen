@@ -35,7 +35,7 @@ public class SingleLinkedListTest {
             other.add(5);
             other.add(6);
             list.concat(other);
-            assertEquals("Concatenating lists [3, 1, 4] and [2, 5, 6] failed.", "[3, 1, 4, 2, 5, 6]", list);
+            assertEquals("Concatenating lists [3, 1, 4] and [2, 5, 6] failed.", "[3, 1, 4, 2, 5, 6]", list.toString());
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
             fail();
@@ -68,6 +68,10 @@ public class SingleLinkedListTest {
             list.add(2);
             list.insert(5, 1);
             assertEquals("Inserting element 5 at index 1 failed.", "[3, 5, 1, 4, 2]", list.toString());
+            list.insert(6, 4);
+            assertEquals("Inserting element 6 at index 4 failed.", "[3, 5, 1, 4, 6, 2]", list.toString());
+            list.insert(7, 0);
+            assertEquals("Inserting element 7 at index 0 failed.", "[7, 3, 5, 1, 4, 6, 2]", list.toString());
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
             fail();

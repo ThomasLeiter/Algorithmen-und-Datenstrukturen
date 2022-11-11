@@ -32,8 +32,15 @@ public class SingleLinkedList<T> {
      * @param element
      */
     public void add(T element) {
-        // TODO
-        throw new UnsupportedOperationException("The method 'add(ele)' has yet to be implemented!");
+        ListNode node = new ListNode(element, null);
+        if (null == head){
+            head = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            tail = node;
+        }
+        ++size;
     }
 
     /**
@@ -44,9 +51,29 @@ public class SingleLinkedList<T> {
      * @param idx
      */
     public void insert(T element, int idx) {
-        // TODO
-        throw new UnsupportedOperationException("The method 'insert(ele,idx)' has yet to be implemented!");
-    }
+            if (idx >= size) {
+                throw new IndexOutOfBoundsException("idx greater than or equal list size.");
+            }
+            ListNode node;
+            ListNode insertNode;
+            if (idx == 0) {
+                insertNode = new ListNode(element, head);
+                node = head;
+                head = insertNode;
+            } else {
+                int i = 0;
+                node = head;
+                while (++i < idx) {
+                    node = node.next;
+                }
+                insertNode = new ListNode(element, node.next);
+                node.next = insertNode;
+            }
+            if (idx == size - 1){
+                tail = node;
+            }
+            ++size;
+        }
 
     /**
      * Remove the element at index idx.
@@ -55,8 +82,25 @@ public class SingleLinkedList<T> {
      * @param idx
      */
     public void remove(int idx) {
-        // TODO
-        throw new UnsupportedOperationException("The method 'remove(idx)' has yet to be implemented!");
+        if (idx >= size) {
+            throw new IndexOutOfBoundsException("idx greater than or equal list size.");
+        }
+        ListNode node;
+        if (idx == 0) {
+            head = head.next;
+            node = head;
+        } else {
+            int i = 0;
+            node = head;
+            while (++i < idx) {
+                node = node.next;
+            }
+            node.next = node.next.next;
+        }
+        if (idx == size - 1){
+            tail = node;
+        }
+        --size;
     }
 
     /**
@@ -66,8 +110,9 @@ public class SingleLinkedList<T> {
      * @param other
      */
     public void concat(SingleLinkedList<T> other) {
-        // TODO
-        throw new UnsupportedOperationException("The method 'concat(other)' has yet to be implemented!");
+        tail.next = other.head;
+        tail = other.tail;
+        size += other.size;
     }
 
     /**
@@ -78,8 +123,15 @@ public class SingleLinkedList<T> {
      * @return
      */
     public T get(int idx) {
-        // TODO
-        throw new UnsupportedOperationException("The method 'concat(other)' has yet to be implemented!");
+        if (idx >= size) {
+            throw new IndexOutOfBoundsException("idx greater than or equal list size.");
+        }
+        int i = 0;
+        ListNode node = head;
+        while (i++ < idx) {
+            node = node.next;
+        }
+        return node.data;
     }
 
     /**
